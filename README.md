@@ -16,7 +16,7 @@ Use case
 Roadmap
 ===
 
- * [ ] Make `scarab version` read a common semantic version
+ * [x] Make `scarab version` read a common semantic version
  * [ ] Add `scarab create` to create a tunnel
  * [ ] Add `scarab delete` to create a tunnel
  * [ ] Add `scarab update` to update an existing tunnel

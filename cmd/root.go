@@ -32,10 +32,8 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
   Use:   "scarab",
-  Short: "Scarab reconfigures a Cloud VPN tunnel",
-  Long: `Scarab updates a Cloud VPN tunnel and peer gateway with the IP address
-provided.  The intended use case is to re-establish a site-to-site VPN when a
-dynamic IP address changes.`,
+  Short: "Update a Cloud VPN tunnel",
+  Long: `Update a vpn tunnel with the IP address provided`,
   // Uncomment the following line if your bare application
   // has an action associated with it:
   //	Run: func(cmd *cobra.Command, args []string) { },
@@ -56,7 +54,6 @@ func init() {
   // Here you will define your flags and configuration settings.
   // Cobra supports persistent flags, which, if defined here,
   // will be global for your application.
-
   rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.scarab.yaml)")
 
 
