@@ -1,25 +1,37 @@
 package scarab
 
 import (
-  "fmt"
+	"fmt"
 
-  "github.com/blang/semver"
+	"github.com/blang/semver"
 )
 
 var (
-  // Passed in from build system (Makefile)
-  Build string
-  BuildTime string
-  BuildVersion string
-  // Set by initializer
-  Version semver.Version
+	// Passed in from build system (Makefile)
+	Build        string
+	BuildTime    string
+	BuildVersion string
+	// Set by initializer
+	Version semver.Version
 )
 
+// Take build strings from the build system and make a semver.Version
+func version(ver string, build string) (semver.Version, error) {
+	v, err := semver.Make(ver)
+	if err != nil {
+		return semver.Version{}, err
+	}
+	if len(build) > 0 {
+		v.Build = []string{build}
+	}
+	return v, nil
+}
+
 func init() {
-  v, err := semver.Make(BuildVersion)
-  if err != nil {
-    fmt.Println(err)
-  }
-  v.Build = []string{Build}
-  Version = v
+	v, err := version(BuildVersion, Build)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	Version = v
 }

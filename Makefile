@@ -5,10 +5,21 @@ BUILD_TIME := $(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 MODULE := github.com/jeffmccune/$(PROJECTNAME)
 
 # Go related variables.
-GOBASE := $(shell pwd)
-GOBIN := $(GOBASE)/bin
-GOFILES := $(wildcard *.go)
 LDFLAGS=-ldflags "-X=$(MODULE)/common/scarab.BuildVersion=$(VERSION) -X=$(MODULE)/common/scarab.Build=$(BUILD) -X=$(MODULE)/common/scarab.BuildTime=$(BUILD_TIME)"
 
 build:
 	go build $(LDFLAGS) -o bin/$(PROJECTNAME) main.go
+
+lint:
+	golangci-lint run ./...
+
+test:
+	go test -coverprofile cover.out ./...
+
+cover: test
+	go tool cover -html=cover.out -o cover.html
+
+check: lint test cover
+
+fmt:
+	go fmt ./...

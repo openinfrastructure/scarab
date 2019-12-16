@@ -18,15 +18,15 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/spf13/cobra"
 	"github.com/jeffmccune/scarab/common/scarab"
+	"github.com/spf13/cobra"
 )
 
 // versionCmd represents the version command
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print the version",
-	Long: `Print the version to standard output.`,
+	Long:  `Print the version to standard output.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(scarab.Version)
 	},
