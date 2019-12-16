@@ -23,6 +23,7 @@ import (
   homedir "github.com/mitchellh/go-homedir"
   "github.com/spf13/viper"
 
+	"github.com/jeffmccune/scarab/common/scarab"
 )
 
 
@@ -49,6 +50,7 @@ func Execute() {
 }
 
 func init() {
+  rootCmd.Version = fmt.Sprintf("%s", scarab.Version)
   cobra.OnInitialize(initConfig)
 
   // Here you will define your flags and configuration settings.

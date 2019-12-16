@@ -18,5 +18,5 @@ package main
 import "github.com/jeffmccune/scarab/cmd"
 
 func main() {
-  cmd.Execute()
+	cmd.Execute()
 }
