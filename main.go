@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/jeffmccune/scarab/cmd"
+import "github.com/openinfrastructure/scarab/cmd"
 
 func main() {
 	cmd.Execute()

@@ -1,4 +1,4 @@
-module github.com/jeffmccune/scarab
+module github.com/openinfrastructure/scarab
 
 go 1.13
 

@@ -23,7 +23,7 @@ import (
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 
-	"github.com/jeffmccune/scarab/common/scarab"
+	"github.com/openinfrastructure/scarab/common/scarab"
 )
 
 var cfgFile string

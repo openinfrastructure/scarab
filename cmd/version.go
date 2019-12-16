@@ -18,7 +18,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/jeffmccune/scarab/common/scarab"
+	"github.com/openinfrastructure/scarab/common/scarab"
 	"github.com/spf13/cobra"
 )
 
