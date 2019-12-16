@@ -19,6 +19,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
+	"log"
 	"os"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -33,7 +34,10 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "scarab",
 	Short: "Update a Cloud VPN tunnel",
-	Long:  `Update a vpn tunnel with the IP address provided`,
+	Long: `Update a vpn tunnel with the IP address provided.
+
+Command line flags may be set via the environment, or config file.
+Environment variables listed leftmost take precedence.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	//	Run: func(cmd *cobra.Command, args []string) { },
@@ -56,10 +60,12 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.scarab.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// Project ID flag
+	rootCmd.PersistentFlags().String("project", "", "The GCP project id {SCARAB_PROJECT, CLOUDSDK_CORE_PROJECT}")
+	err := viper.BindPFlag("project", rootCmd.PersistentFlags().Lookup("project"))
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -80,10 +86,21 @@ func initConfig() {
 		viper.SetConfigName(".scarab")
 	}
 
+	viper.SetEnvPrefix("scarab")
 	viper.AutomaticEnv() // read in environment variables that match
+	if err := viper.BindEnv("project", "CLOUDSDK_CORE_PROJECT"); err != nil {
+		log.Fatal(err)
+	}
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
+	}
+}
+
+// validateConfig validates required configuration values
+func validateConfig() {
+	if viper.Get("project") == "" {
+		log.Fatal("Error: --project is required")
 	}
 }
