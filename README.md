@@ -13,6 +13,17 @@ Use case
  * Ubiquiti EdgeRouter-4 v2.0.8 firmware (mips64 GNU/Linux)
  * Google Cloud VPN HA - IKEv2 tunnel with BGP dynamic routing.
 
+IAM Roles
+===
+
+The service account used by Scarab needs the following roles assigned:
+
+Compute Network User
+---
+
+`roles/compute.networkUser` is required to grant the
+`compute.externalVpnGateways.list` permission to list VPN Gateways.
+
 Roadmap
 ===
 
