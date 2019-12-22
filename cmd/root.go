@@ -62,8 +62,12 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.scarab.yaml)")
 	// Project ID flag
 	rootCmd.PersistentFlags().String("project", "", "The GCP project id {SCARAB_PROJECT, CLOUDSDK_CORE_PROJECT}")
-	err := viper.BindPFlag("project", rootCmd.PersistentFlags().Lookup("project"))
-	if err != nil {
+	if err := viper.BindPFlag("project", rootCmd.PersistentFlags().Lookup("project")); err != nil {
+		log.Fatal(err)
+	}
+	// Compute Region flag
+	rootCmd.PersistentFlags().String("region", "", "The GCP compute region {SCARAB_REGION, CLOUDSDK_COMPUTE_REGION}")
+	if err := viper.BindPFlag("region", rootCmd.PersistentFlags().Lookup("region")); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -91,6 +95,9 @@ func initConfig() {
 	if err := viper.BindEnv("project", "CLOUDSDK_CORE_PROJECT"); err != nil {
 		log.Fatal(err)
 	}
+	if err := viper.BindEnv("region", "CLOUDSDK_COMPUTE_REGION"); err != nil {
+		log.Fatal(err)
+	}
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
@@ -102,5 +109,8 @@ func initConfig() {
 func validateConfig() {
 	if viper.Get("project") == "" {
 		log.Fatal("Error: --project is required")
+	}
+	if viper.Get("region") == "" {
+		log.Fatal("Error: --region is required, e.g. us-west1")
 	}
 }
