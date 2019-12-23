@@ -8,10 +8,15 @@ address changes.
 The name comes from the Golden Scarab in the [story about syncronicity][2].
 
 Use case
+---
+
+When a new public IP is obtained, the site-to-site VPN should be automatically
+reconnected within 5 minutes.
 
  * CenturyLink Gigabit internet with PPPoE dynamic IP.
- * Ubiquiti EdgeRouter-4 v2.0.8 firmware (mips64 GNU/Linux)
- * Google Cloud VPN HA - IKEv2 tunnel with BGP dynamic routing.
+ * Ubiquiti EdgeRouter-4 v2.0.8 firmware (mips64 GNU/Linux).
+ * Google Cloud HA VPN - IKEv2 tunnel with BGP dynamic routing.
+ * Cloudflare DNS A record needing to be updated as well.
 
 IAM Roles
 ===
@@ -23,16 +28,6 @@ Compute Network User
 
 `roles/compute.networkUser` is required to grant the
 `compute.externalVpnGateways.list` permission to list VPN Gateways.
-
-Roadmap
-===
-
- * [x] Make `scarab version` read a common semantic version
- * [ ] Add `scarab list` to list peer gateways
- * [ ] Add `scarab create` to create a tunnel
- * [ ] Add `scarab delete` to create a tunnel
- * [ ] Add `scarab update` to update an existing tunnel
- * [ ] Design how to handle the tunnel preshared key
 
 [1]: https://cloud.google.com/vpn/docs/concepts/overview
 [2]: https://en.wikipedia.org/wiki/Synchronicity
