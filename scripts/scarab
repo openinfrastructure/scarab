@@ -1,0 +1,6 @@
+#! /bin/bash
+#
+: ${GOOGLE_APPLICATION_CREDENTIALS:="/config/scarab/credentials.json"}
+export GOOGLE_APPLICATION_CREDENTIALS
+export PATH="/config/scarab/bin.mips64:${PATH}"
+exec scarab "$@"

@@ -1,0 +1,5 @@
+#! /bin/bash
+logger -t "scarab[$$]" "BEGIN: /config/scarab/bin/scarab update --address=${PPP_LOCAL}"
+/config/scarab/bin/scarab update --address="${PPP_LOCAL}"
+rval=$?
+logger -t "scarab[$$]" "END: /config/scarab/bin/scarab update --address=${PPP_LOCAL} (status=${rval})"

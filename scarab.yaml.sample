@@ -1,0 +1,3 @@
+---
+project: "${SCARAB_PROJECT}"
+region: "${SCARAB_REGION}"

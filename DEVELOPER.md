@@ -8,7 +8,7 @@ tunnel should be able to be created.
  * [x] Add `scarab list` to list vpn tunnels
  * [x] Scarab logs via standard output.
  * [x] Read configuration from /config/scarab/scarab.yaml
- * [ ] Install scarab into EdgeRouter-4 /config
+ * [x] Install scarab into EdgeRouter-4 /config
  * [ ] Update creates a new ExternalVPNGateway resource.
  * [ ] Update waits for the ExternalVPNGateway insert via waitDone().
  * [ ] waitDone() checks the status of each Operation.
