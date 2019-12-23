@@ -1,3 +1,4 @@
 ---
 project: "${SCARAB_PROJECT}"
 region: "${SCARAB_REGION}"
+tunnel: "${SCARAB_TUNNEL}"

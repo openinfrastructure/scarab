@@ -9,15 +9,18 @@ tunnel should be able to be created.
  * [x] Scarab logs via standard output.
  * [x] Read configuration from /config/scarab/scarab.yaml
  * [x] Install scarab into EdgeRouter-4 /config
- * [ ] Update creates a new ExternalVPNGateway resource.
- * [ ] Update waits for the ExternalVPNGateway insert via waitDone().
- * [ ] waitDone() checks the status of each Operation.
- * [ ] waitDone() logs to the user.
- * [ ] pollOpenItem() sends forever until aborted.
- * [ ] go routine pollOpenItem() is verified to not leak.
- * [ ] Error fixed: Error 400: Invalid value for field, Either
-     peerExternalGateway or peerGcpGateway must be specified for HA VPN tunnel
-     creation., invalid
+ * [x] Create new tunnel using the old as a reference
+   * [x] Update creates a new ExternalVPNGateway resource.
+   * [x] Update waits for the ExternalVPNGateway insert via waitDone().
+   * [x] waitDone() checks the status of each Operation.
+   * [x] waitDone() logs to the user.
+   * [x] pollOpenItem() sends forever until aborted.
+   * [x] go routine pollOpenItem() is verified to not leak.
+   * [x] Fix waitDone() Regional invalidParameter
+   * [x] Fix Invalid value peerExternalGateway must be specified.
+ * [ ] Create cmd creates a new tunnel from scratch
+ * [ ] Delete cmd deletes an existing tunnel
+ * [ ] Update cmd deletes then creates a tunnel
  * [ ] Set the ER-4 VPN local-address to the new IP.  `set vpn ipsec
      site-to-site peer 35.242.52.86 local-address $PPP_LOCAL`
  * [ ] Validate vpn tunnel is created correctly when run manually.

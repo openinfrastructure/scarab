@@ -23,6 +23,14 @@ IAM Roles
 
 The service account used by Scarab needs the following roles assigned:
 
+Compute Network Admin
+---
+
+`roles/compute.networkAdmin` is required to grant the
+`compute.vpnTunnels.create` permission to create VPN Tunnels.
+`compute.routers.use` is required to create the VPN Tunnel association with the
+cloud router.
+
 Compute Network User
 ---
 
@@ -31,3 +39,4 @@ Compute Network User
 
 [1]: https://cloud.google.com/vpn/docs/concepts/overview
 [2]: https://en.wikipedia.org/wiki/Synchronicity
+[3]: https://cloud.google.com/compute/docs/reference/rest/v1/vpnTunnels
