@@ -14,32 +14,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package scarab
+package cmd
 
 import (
-	"context"
-	"log"
-
-	"google.golang.org/api/compute/v1"
-	"google.golang.org/api/dns/v1"
+	"github.com/spf13/cobra"
 )
 
-// NewService returns the GCP Compute API.
-// See: https://godoc.org/google.golang.org/api/compute/v1
-func NewService() *compute.Service {
-	svc, err := compute.NewService(context.Background())
-	if err != nil {
-		log.Fatal(err)
-	}
-	return svc
+var dnsCmd = &cobra.Command{
+	Use:   "dns",
+	Short: "Manage Cloud DNS resources",
+	Long:  "Manage Cloud DNS resources",
+	Run:   dnsCmdMain,
 }
 
-// NewDNSService returns the GCP DNS API.  See:
-// https://godoc.org/google.golang.org/api/dns/v1
-func NewDNSService() *dns.Service {
-	svc, err := dns.NewService(context.Background())
-	if err != nil {
-		log.Fatal(err)
-	}
-	return svc
+func dnsCmdMain(cmd *cobra.Command, args []string) {
+	cmd.Usage()
+}
+
+func init() {
+	rootCmd.AddCommand(dnsCmd)
 }

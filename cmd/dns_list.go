@@ -14,32 +14,39 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package scarab
+package cmd
 
 import (
-	"context"
 	"log"
 
-	"google.golang.org/api/compute/v1"
-	"google.golang.org/api/dns/v1"
+	"github.com/openinfrastructure/scarab/common/scarab"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
-// NewService returns the GCP Compute API.
-// See: https://godoc.org/google.golang.org/api/compute/v1
-func NewService() *compute.Service {
-	svc, err := compute.NewService(context.Background())
-	if err != nil {
-		log.Fatal(err)
-	}
-	return svc
+var dnsListCmd = &cobra.Command{
+	Use:   "list",
+	Short: "List DNS managed zones",
+	Long:  "List DNS managed zones in the specified project",
+	Run:   dnsListCmdMain,
 }
 
-// NewDNSService returns the GCP DNS API.  See:
-// https://godoc.org/google.golang.org/api/dns/v1
-func NewDNSService() *dns.Service {
-	svc, err := dns.NewService(context.Background())
+func init() {
+	dnsCmd.AddCommand(dnsListCmd)
+}
+
+func dnsListCmdMain(cmd *cobra.Command, args []string) {
+	validateConfig()
+
+	project := viper.GetString("project")
+	svc := scarab.NewDNSService()
+
+	l, err := svc.ManagedZones.List(project).Do()
 	if err != nil {
 		log.Fatal(err)
 	}
-	return svc
+
+	for _, i := range l.ManagedZones {
+		log.Println(i.Name)
+	}
 }
