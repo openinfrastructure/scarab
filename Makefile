@@ -23,3 +23,23 @@ check: lint test cover
 
 fmt:
 	go fmt ./...
+
+# dlv debug -- dns update --dnszone=jeff --rrnames="*.jeff.ois.run."
+# Type 'help' for list of commands.
+# (dlv) break cmd.debug
+# Breakpoint 1 set at 0x1a17cd3 for github.com/openinfrastructure/scarab/cmd.debug() ./cmd/dns_update.go:129
+# (dlv) continue
+# Version string empty
+# > github.com/openinfrastructure/scarab/cmd.debug() ./cmd/dns_update.go:129 (hits goroutine(1):1 total:1) (PC: 0x1a17cd3)
+#    124:         }
+#    125:
+#    126:         log.Println(c)
+#    127: }
+#    128:
+# => 129: func debug(c *dns.Change) bool {
+#    130:         log.Println(c)
+#    131:         return false
+#    132: }
+# (dlv)
+debug:
+	dlv debug -- dns update --dnszone=jeff --rrnames="*.jeff.ois.run."

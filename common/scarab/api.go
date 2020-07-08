@@ -21,13 +21,37 @@ import (
 	"log"
 
 	"google.golang.org/api/compute/v1"
+	"google.golang.org/api/dns/v1"
 )
 
-// NewService returns the compute service.
+// NewService returns the GCP Compute API.
+// See: https://godoc.org/google.golang.org/api/compute/v1
 func NewService() *compute.Service {
 	svc, err := compute.NewService(context.Background())
 	if err != nil {
 		log.Fatal(err)
 	}
 	return svc
+}
+
+// NewDNSService returns the GCP DNS API.  See:
+// https://godoc.org/google.golang.org/api/dns/v1
+func NewDNSService() *dns.Service {
+	svc, err := dns.NewService(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
+	return svc
+}
+
+// DoDNSChange executes a DNS Change requiest if and only if the change
+// resource has at least one insertion or at least one deletion.
+func DoDNSChange(svc *dns.Service, project string, dnszone string, change *dns.Change) (c *dns.Change, err error) {
+	if (len(change.Additions) < 1) && (len(change.Deletions) < 1) {
+		log.Println("No changes to make")
+		return change, nil
+	}
+	c, err = svc.Changes.Create(project, dnszone, change).Do()
+	log.Println("Change status:", c.Status)
+	return c, err
 }
