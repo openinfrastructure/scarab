@@ -10,6 +10,13 @@ LDFLAGS=-ldflags "-X=$(MODULE)/common/scarab.BuildVersion=$(VERSION) -X=$(MODULE
 build:
 	go build $(LDFLAGS) -o bin/$(PROJECTNAME) main.go
 
+# Build for the EdgeRouter-4
+build.er4:
+	GOOS=linux GOARCH=mips64 go build $(LDFLAGS) -o bin/$(PROJECTNAME).mips64 main.go
+
+install.er4: build.er4
+	scp bin/$(PROJECTNAME).mips64 ubnt@gw:/config/scarab/bin.mips64/scarab
+
 lint:
 	golangci-lint run ./...
 
